@@ -227,3 +227,139 @@ h1 {
     border-radius: 100%;
     margin-bottom:1px;
 }
+
+.error-container{
+    display: none;
+}
+.error-container.active{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.error-container img{
+    height: 250px;
+    width: 250px;
+}
+
+.error-container pre{
+    font-size: 1.15rem;
+    font-weight:400;
+    
+}
+
+/* ===== Responsive Design ===== */
+
+@media (max-width: 768px) {
+  .tab-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .weather-container {
+    margin-block: 2rem;
+  }
+
+  .form-container {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .form-container input {
+    width: 100%;
+  }
+
+  .form-container .btn {
+    width: 100%;
+    height: 40px;
+    border-radius: 10px;
+  }
+
+  .parameter-container {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .parameter {
+    width: 80%;
+    max-width: none;
+  }
+
+  .name {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .user-info-container img {
+    width: 70px;
+    height: 70px;
+  }
+
+  .name img {
+    width: 25px;
+    height: 25px;
+  }
+
+  .user-info-container p[data-temp] {
+    font-size: 2rem;
+  }
+
+  .error-container img {
+    width: 180px;
+    height: 180px;
+  }
+
+  .error-container pre {
+    font-size: 1rem;
+    text-align: center;
+    padding: 0 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  h1 {
+    font-size: 1.5rem;
+    padding-top: 15px;
+  }
+
+  .tab {
+    font-size: 0.75rem;
+    padding: 4px 6px;
+  }
+
+  .form-container input {
+    font-size: 0.85rem;
+  }
+
+  .user-info-container p {
+    font-size: 1.2rem;
+  }
+
+  .parameter p:first-of-type {
+    font-size: 1rem;
+  }
+
+  .parameter p:last-of-type {
+    font-size: 0.9rem;
+  }
+
+  .parameter img {
+    width: 40px;
+    height: 40px;
+  }
+
+  .user-info-container p[data-temp] {
+    font-size: 1.8rem;
+  }
+
+  .error-container img {
+    width: 140px;
+    height: 140px;
+  }
+
+  .error-container pre {
+    font-size: 0.9rem;
+  }
+}
