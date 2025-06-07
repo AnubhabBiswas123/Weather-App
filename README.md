@@ -4,7 +4,7 @@ A responsive weather web application that provides real-time weather information
 
 ## 🌐 Live Demo
 
-> [ https://anubhabbiswas123.github.io/Weather-App/]
+> [https://anubhabbiswas123.github.io/Weather-App/]
 ---
 
 ## 🚀 Features
