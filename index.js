@@ -6,7 +6,7 @@ const grantAccessContainer = document.querySelector(".grant-location-container")
 const searchForm = document.querySelector("[data-searchForm]");
 const loadingScreen = document.querySelector(".loading-container");
 const userInfoContainer = document.querySelector(".user-info-container");
-
+const errorc= document.querySelector('.error-container');
 //initially vairables need????
 
 let oldTab = userTab;
@@ -24,6 +24,7 @@ function switchTab(newTab) {
             //kya search form wala container is invisible, if yes then make it visible
             userInfoContainer.classList.remove("active");
             grantAccessContainer.classList.remove("active");
+            errorc.classList.remove('active');
             searchForm.classList.add("active");
         }
         else {
@@ -52,9 +53,12 @@ function getfromSessionStorage() {
     const localCoordinates = sessionStorage.getItem("user-coordinates");
     if(!localCoordinates) {
         //agar local coordinates nahi mile
+        //this is a case if we use the search option before and we get the 404 then we need to hide that option
+        errorc.classList.remove('active');
         grantAccessContainer.classList.add("active");
     }
     else {
+
         const coordinates = JSON.parse(localCoordinates);
         fetchUserWeatherInfo(coordinates);
     }
@@ -67,7 +71,7 @@ async function fetchUserWeatherInfo(coordinates) {
     grantAccessContainer.classList.remove("active");
     //make loader visible
     loadingScreen.classList.add("active");
-
+    errorc.classList.remove('active');
     //API CALL
     try {
         const response = await fetch(
@@ -104,7 +108,8 @@ function renderWeatherInfo(weatherInfo) {
     //fetch values from weatherINfo object and put it UI elements
     cityName.innerText = weatherInfo?.name;
     countryIcon.src = `https://flagcdn.com/144x108/${weatherInfo?.sys?.country.toLowerCase()}.png`;
-    desc.innerText = weatherInfo?.weather?.[0]?.description;
+    const description = weatherInfo?.weather?.[0]?.description || "";
+    desc.innerText = description.charAt(0).toUpperCase() + description.slice(1);
     weatherIcon.src = `http://openweathermap.org/img/w/${weatherInfo?.weather?.[0]?.icon}.png`;
     temp.innerText = `${weatherInfo?.main?.temp} °C`;
     windspeed.innerText = `${weatherInfo?.wind?.speed} m/s`;
@@ -152,6 +157,7 @@ searchForm.addEventListener("submit", (e) => {
 
 async function fetchSearchWeatherInfo(city) {
     loadingScreen.classList.add("active");
+    errorc.classList.remove('active');
     userInfoContainer.classList.remove("active");
     grantAccessContainer.classList.remove("active");
 
@@ -161,6 +167,12 @@ async function fetchSearchWeatherInfo(city) {
           );
         const data = await response.json();
         loadingScreen.classList.remove("active");
+         if (data.cod === "404") {
+            userInfoContainer.classList.remove('active');
+            grantAccessContainer.classList.remove('active');
+            errorc.classList.add('active');
+            return;
+            }
         userInfoContainer.classList.add("active");
         renderWeatherInfo(data);
     }
